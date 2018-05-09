@@ -1,0 +1,15 @@
+[Unit]
+Description=Yuma123 netconf service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+Restart=no
+Environment=YUMA_HOME=/var/db/yuma YUMA_DATAPATH=/var/db/yuma
+EnvironmentFile=-/etc/default/netconfd
+ExecStartPre=/bin/mkdir -p /var/db/yuma/data
+ExecStart=/usr/sbin/netconfd $OPTIONS
+
+[Install]
+WantedBy=multi-user.target
+

@@ -4,7 +4,7 @@
 LIB_VERSION = 2
 
 %:
-	dh $@ --with autotools-dev,autoreconf
+	dh $@ --with autotools-dev,autoreconf,systemd
 
 
 override_dh_auto_configure:
@@ -27,3 +27,9 @@ override_dh_installdocs:
 
 override_dh_makeshlibs:
 	dh_makeshlibs -Xhelloworld -Xtoaster -Xietf-interfaces -Xietf-system
+
+override_dh_systemd_enable:
+	dh_systemd_enable -pnetconfd --no-enable netconfd.service
+
+override_dh_systemd_start:
+	dh_systemd_start -pnetconfd --no-start netconfd.service

@@ -7,6 +7,9 @@ License:        multiple
 URL:            https://sourceforge.net/projects/yuma123
 Source0:        %{name}-%{version}.tar.gz
 
+@HAVE_SYSTEMD_TRUE@%global have_systemd 1
+@HAVE_SYSTEMD_TRUE@%{?systemd_requires}
+@HAVE_SYSTEMD_TRUE@BuildRequires: systemd
 BuildRequires:  autoconf
 BuildRequires:  libtool
 BuildRequires:  ncurses-devel
@@ -115,6 +118,16 @@ requests from clients and provides responses.
 %{_mandir}/man1/netconf-subsystem.1*
 %{_libdir}/yuma/libhelloworld.so*
 %{_libdir}/yuma/libtoaster.so*
+%if %{have_systemd:1}
+%{_unitdir}/netconfd.service
+
+%post netconfd
+%systemd_post netconfd.service
+%preun netconfd
+%systemd_preun netconfd.service
+%postun netconfd
+%systemd_postun_with_restart netconfd.service
+%endif
 
 
 
