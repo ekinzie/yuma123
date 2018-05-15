@@ -1,6 +1,6 @@
 Name:           @PACKAGE@
 Version:        @VERSION@
-Release:        1%{?dist}
+Release:        1.qosient0%{?dist}
 Summary:        YANG API in C and YANG based cli
 
 License:        multiple
